@@ -11,7 +11,7 @@ mkdir -p "$FOLDER"
 
 # ၃။ Ubuntu 24.04.3 LTS (ARM64) ကို Download ဆွဲခြင်း
 echo "Downloading Ubuntu 24.04.3 LTS..."
-URL="https://cdimage.ubuntu.com/ubuntu-base/releases/24.04/release/ubuntu-base-24.04-base-arm64.tar.gz"
+URL="https://cdimage.ubuntu.com/ubuntu-base/releases/24.04/release/ubuntu-base-24.04.1-base-arm64.tar.gz"
 wget -c $URL -O rootfs.tar.gz
 
 # ၄။ File များကို ဖြည်ချခြင်း
