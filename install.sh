@@ -9,14 +9,19 @@ FOLDER="ubuntu-fs"
 [ -d "$FOLDER" ] && rm -rf "$FOLDER"
 mkdir -p "$FOLDER"
 
-# ၃။ Ubuntu 24.04.3 LTS (ARM64) ကို Download ဆွဲခြင်း
-echo "Downloading Ubuntu 24.04.3 LTS..."
+# ၃။ Ubuntu 24.04.1 LTS (ARM64) ကို Download ဆွဲခြင်း (Link အမှန်ကို ပြင်ထားသည်)
+echo "Downloading Ubuntu 24.04.1 LTS..."
 URL="https://cdimage.ubuntu.com/ubuntu-base/releases/24.04/release/ubuntu-base-24.04.1-base-arm64.tar.gz"
 wget -c $URL -O rootfs.tar.gz
 
 # ၄။ File များကို ဖြည်ချခြင်း
 echo "Extracting system files..."
-proot --link2symlink tar -xf rootfs.tar.gz -C "$FOLDER" --exclude='dev'
+if [ -f "rootfs.tar.gz" ]; then
+    proot --link2symlink tar -xf rootfs.tar.gz -C "$FOLDER" --exclude='dev'
+else
+    echo "Error: Download failed!"
+    exit 1
+fi
 
 # ၅။ DNS Fix (Internet ရအောင်)
 echo "nameserver 8.8.8.8" > "$FOLDER/etc/resolv.conf"
@@ -47,7 +52,8 @@ proot --link2symlink -0 -r $FOLDER \
 EOT
 
 chmod +x start.sh
+rm rootfs.tar.gz
 echo "-----------------------------------"
-echo "Ubuntu 24.04.3 LTS Setup Complete!"
+echo "Ubuntu 24.04.1 LTS Setup Complete!"
 echo "Run: ./start.sh to begin."
 echo "-----------------------------------"
